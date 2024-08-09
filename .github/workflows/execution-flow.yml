@@ -33,8 +33,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Test code
+        id: run-tests #It allows to assign a unique ID for the step
         run: npm run test
       - name: Upload test report
+        if: steps.run-tests.outcome == 'failure' #I use the ID specified below to do the condition.
         uses: actions/upload-artifact@v4
         with:
           name: test-report
